@@ -1,6 +1,6 @@
 package UIAction
 
-import "main.go/app/user/v1/model/UserInfoModel"
+import "main.go/app/http/v1/model/UserInfoModel"
 
 func App_userinfo(project, uid interface{}) map[string]interface{} {
 	ui := UserInfoModel.Api_find(project, uid)

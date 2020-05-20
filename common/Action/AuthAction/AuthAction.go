@@ -2,7 +2,7 @@ package AuthAction
 
 import (
 	"fmt"
-	"main.go/app/user/v1/model/UserInfoModel"
+	"main.go/app/http/v1/model/UserInfoModel"
 	"main.go/common/Action/ProjectAction"
 	"main.go/common/Model/UserTokenModel"
 	"main.go/tuuz"

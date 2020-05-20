@@ -2,7 +2,7 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
-	user2 "main.go/route/http"
+	http2 "main.go/route/http"
 )
 
 func OnRoute(router *gin.Engine) {
@@ -16,7 +16,7 @@ func OnRoute(router *gin.Engine) {
 		})
 		v1 := http.Group("/v1")
 		{
-			user2.V1Router(v1)
+			http2.V1Router(v1)
 		}
 	}
 }

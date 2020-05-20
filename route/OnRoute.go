@@ -3,7 +3,6 @@ package route
 import (
 	"github.com/gin-gonic/gin"
 	user2 "main.go/route/http"
-	"os/user"
 )
 
 func OnRoute(router *gin.Engine) {
@@ -13,7 +12,7 @@ func OnRoute(router *gin.Engine) {
 	http := router.Group("/http")
 	{
 		http.Any("/", func(context *gin.Context) {
-			context.String(0, user.BasePath())
+			context.String(0, router.BasePath())
 		})
 		v1 := http.Group("/v1")
 		{

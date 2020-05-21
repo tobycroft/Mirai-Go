@@ -15,6 +15,7 @@ func index(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
+		fmt.Println(c.Request.Header)
 		fmt.Println(string(json))
 	}
 }

@@ -15,6 +15,6 @@ func index(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(json)
+		fmt.Println(string(json))
 	}
 }

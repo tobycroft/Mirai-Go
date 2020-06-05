@@ -12,10 +12,11 @@ func DataController(route *gin.RouterGroup) {
 
 func index(c *gin.Context) {
 	json, err := c.GetRawData()
+	bot := c.GetHeader("bot")
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(c.Request.Header)
+		fmt.Println(bot)
 		fmt.Println(string(json))
 	}
 }

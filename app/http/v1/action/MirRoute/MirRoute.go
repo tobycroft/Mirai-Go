@@ -42,16 +42,26 @@ func Do(qq, json string) {
 }
 
 func message(qq, Type *string, json map[string]interface{}, str *string) {
-	switch *Type {
-	case "FriendMessage": //个人消息
-		break
+	sender, err := Jsong.ParseObject(json["sender"])
+	if err != nil {
+		Log.Errs(err, tuuz.FUNCTION_ALL())
+	} else {
+		messageChain, err := Jsong.ParseSlice(json["messageChain"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+		} else {
+			switch *Type {
+			case "FriendMessage": //个人消息
+				break
 
-	case "GroupMessage": //群消息
-		break
+			case "GroupMessage": //群消息
+				break
 
-	default:
-		go LogUnknowModel.Api_insert(qq, str)
-		break
+			default:
+				go LogUnknowModel.Api_insert(qq, str)
+				break
+			}
+		}
 	}
 }
 

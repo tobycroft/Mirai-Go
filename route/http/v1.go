@@ -6,9 +6,5 @@ import (
 )
 
 func V1Router(route *gin.RouterGroup) {
-	//route.Any("/", func(context *gin.Context) {
-	//	context.String(0, route.BasePath())
-	//})
 	controller.DataController(route.Group("/data"))
-
 }

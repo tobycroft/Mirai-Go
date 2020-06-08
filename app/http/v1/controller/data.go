@@ -3,11 +3,16 @@ package controller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"main.go/app/http/v1/action/MirRoute"
 )
 
 func DataController(route *gin.RouterGroup) {
-	//route.Use(inital(), gin.Recovery())
+	route.Use(inital, gin.Recovery())
 	route.Any("", index)
+}
+
+func inital(c *gin.Context) {
+	c.Next()
 }
 
 func index(c *gin.Context) {
@@ -16,7 +21,6 @@ func index(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(bot)
-		fmt.Println(string(json))
+		MirRoute.Do(bot, string(json))
 	}
 }

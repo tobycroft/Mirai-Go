@@ -24,15 +24,15 @@ func Do(qq, json string) {
 		switch Type {
 
 		case "FriendMessage":
-			message(qq, Type, ret, json)
+			message(&qq, &Type, ret, &json)
 			break
 
 		case "GroupNameChangeEvent":
-			notice(qq, Type, ret, json)
+			notice(&qq, &Type, ret, &json)
 			break
 
 		case "NewFriendRequestEvent":
-			request(qq, Type, ret, json)
+			request(&qq, &Type, ret, &json)
 			break
 
 		default:
@@ -41,21 +41,80 @@ func Do(qq, json string) {
 	}
 }
 
-func message(qq, Type string, json map[string]interface{}, str string) {
+func message(qq, Type *string, json map[string]interface{}, str *string) {
+	switch *Type {
+	case "FriendMessage": //个人消息
+		break
 
+	case "GroupMessage": //群消息
+		break
+
+	default:
+		go LogUnknowModel.Api_insert(qq, str)
+		break
+	}
 }
 
-func notice(qq, Type string, json map[string]interface{}, str string) {
+func notice(qq, Type *string, json map[string]interface{}, str *string) {
+	switch *Type {
+	case "GroupNameChangeEvent": //群-event-修改群名称
+		break
 
+	case "BotLeaveEventActive": //群-event-机器人被T/群-被解散
+		break
+
+	case "MemberJoinRequestEvent": //群-机器人-加入群
+		break
+
+	case "MemberJoinEvent": //群-用户-有人加群
+		break
+
+	case "GroupRecallEvent": //群-event-撤回
+		break
+
+	case "MemberLeaveEventQuit": //群-event-主动退群
+		break
+
+	case "MemberLeaveEventKick": //群-用户-被T出群
+		break
+
+	case "BotGroupPermissionChangeEvent": //群-机器人-被设定为管理员/群-机器人-被取消管理
+		break
+
+	case "MemberMuteEvent": //群-禁言-设定禁言1小时
+		break
+
+	case "MemberUnmuteEvent": //群-禁言-解除禁言
+		break
+
+	case "BotMuteEvent": //群-机器人-禁言
+		break
+
+	case "BotUnmuteEvent": //群-机器人-解除禁言
+		break
+
+	case "MemberCardChangeEvent": //群-机器人-被修改群名片
+		break
+
+	case "MemberPermissionChangeEvent": //群-管理-设为管理员/群-管理-取消管理员
+		break
+
+	case "GroupMuteAllEvent": //群-全员禁言-开/群-全员禁言-关
+		break
+
+	default:
+		go LogUnknowModel.Api_insert(qq, str)
+		break
+	}
 }
 
-func request(qq, Type string, json map[string]interface{}, str string) {
-	switch Type {
-	case "NewFriendRequestEvent":
+func request(qq, Type *string, json map[string]interface{}, str *string) {
+	switch *Type {
+	case "NewFriendRequestEvent": //个人-event-收到好友申请
 		go RequestPrivateModel.Api_insert(qq, json["eventId"], json["message"], json["fromId"], json["groupId"], json["nick"])
 		break
 
-	case "BotInvitedJoinGroupRequestEvent":
+	case "BotInvitedJoinGroupRequestEvent": //群-event-机器人被邀请进群
 		go RequestGroupModel.Api_insert(qq, json["eventId"], json["message"], json["fromId"], json["groupId"], json["groupName"], json["nick"])
 		break
 

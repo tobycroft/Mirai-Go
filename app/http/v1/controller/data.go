@@ -7,7 +7,7 @@ import (
 
 func DataController(route *gin.RouterGroup) {
 	//route.Use(inital(), gin.Recovery())
-	route.Any("index", index)
+	route.Any("", index)
 }
 
 func index(c *gin.Context) {

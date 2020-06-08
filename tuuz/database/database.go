@@ -29,7 +29,7 @@ func DbConfig() *gorose.Config {
 func dsn() string {
 	dbname := "mirai"
 	dbuser := "mirai"
-	dbpass := "qwerty123"
+	dbpass := "mirai"
 	dbhost := "10.0.0.170"
 	conntype := "tcp"
 	dbport := "3306"

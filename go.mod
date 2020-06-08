@@ -10,7 +10,7 @@ require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.3.0 // indirect
-	github.com/go-sql-driver/mysql v1.5.0
+	github.com/go-sql-driver/mysql v1.5.1-0.20200531100419-12508c83901b
 	github.com/gohouse/converter v0.0.3 // indirect
 	github.com/gohouse/golib v0.0.0-20200312063614-067523159413 // indirect
 	github.com/gohouse/gorose/v2 v2.1.7

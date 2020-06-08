@@ -1,5 +1,5 @@
 package MirRoute
 
-func Do(json string) {
+func Do(qq, json string) {
 
 }

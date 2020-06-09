@@ -69,6 +69,10 @@ func Any2Int64(any interface{}) int64 {
 	return ret
 }
 
+func Any2Int64_2(any interface{}) (int64, error) {
+	return String2Int64(Any2String(any))
+}
+
 func Any2Float64(any interface{}) float64 {
 	ret, err := String2Float64(Any2String(any))
 	if err != nil {

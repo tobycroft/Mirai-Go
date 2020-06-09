@@ -1,6 +1,7 @@
 package Message
 
 import (
+	"fmt"
 	"main.go/app/http/v1/model/LogErrModel"
 	"main.go/extend/MirAi/v1/model/MessageGroupModel"
 	"main.go/tuuz"
@@ -73,7 +74,7 @@ func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]int
 			default:
 				break
 			}
-
+			fmt.Println(at, at_qq)
 			go MessageGroupModel.Api_insert(*qq, *message_id, *user_id, role, nickname, user_role, group_id, group_name, *messages, strings.Join(*imgs, ","), *str, *time)
 		}
 	}

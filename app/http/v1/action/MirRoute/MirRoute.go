@@ -58,12 +58,59 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 			go LogRecvModel.Api_insert(qq, str)
 			switch *Type {
 			case "FriendMessage": //个人消息
-				if messageChain[0] != nil {
+				var messages string
+				var messageId int64 = 0
+				var time int64 = 0
+				var url []string
+				for _, txt := range messageChain {
+					msg, err := Jsong.ParseObject(txt)
+					if err != nil {
+						Log.Errs(err, tuuz.FUNCTION_ALL())
+					} else {
+						switch msg["type"].(string) {
+						case "Source":
+							messageId = Calc.Any2Int64(msg["id"])
+							time = Calc.Any2Int64(msg["time"])
+							break
 
+						case "Plain":
+							messages += Calc.Any2String(msg["text"])
+							break
+
+						case "Image":
+							url = append(url, Calc.Any2String(msg["Image"]))
+							break
+
+						case "At":
+							break
+
+						case "AtAll":
+							break
+
+						case "Face":
+							break
+
+						case "Xml":
+							break
+
+						case "Json":
+							break
+
+						case "App":
+							break
+
+						default:
+							break
+						}
+					}
 				}
+
 				break
 
 			case "GroupMessage": //群消息
+				for _, msg := range messageChain {
+
+				}
 				break
 
 			case "TempMessage":

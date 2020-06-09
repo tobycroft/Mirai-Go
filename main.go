@@ -11,5 +11,4 @@ func main() {
 	//gin.DefaultWriter = ioutil.Discard
 	route.OnRoute(mainroute)
 	mainroute.Run(":90")
-
 }

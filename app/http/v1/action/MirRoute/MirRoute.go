@@ -2,7 +2,9 @@ package MirRoute
 
 import (
 	"fmt"
+	"main.go/app/http/v1/model/LogErrModel"
 	"main.go/app/http/v1/model/LogModel"
+	"main.go/app/http/v1/model/LogRecvModel"
 	"main.go/app/http/v1/model/LogUnknowModel"
 	"main.go/extend/MirAi/v1/model/RequestGroupModel"
 	"main.go/extend/MirAi/v1/model/RequestPrivateModel"
@@ -44,14 +46,18 @@ func Do(qq, json string) {
 func message(qq, Type *string, json map[string]interface{}, str *string) {
 	sender, err := Jsong.ParseObject(json["sender"])
 	if err != nil {
-		Log.Errs(err, tuuz.FUNCTION_ALL())
+		LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
 	} else {
 		messageChain, err := Jsong.ParseSlice(json["messageChain"])
 		if err != nil {
-			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
 		} else {
+			go LogRecvModel.Api_insert(qq, str)
 			switch *Type {
 			case "FriendMessage": //个人消息
+				if messageChain[0] != nil {
+
+				}
 				break
 
 			case "GroupMessage": //群消息

@@ -63,6 +63,9 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 			case "GroupMessage": //群消息
 				break
 
+			case "TempMessage":
+				break
+
 			default:
 				go LogUnknowModel.Api_insert(qq, str)
 				break

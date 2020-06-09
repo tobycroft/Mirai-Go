@@ -25,15 +25,18 @@ func Do(qq, json string) {
 		Type := Calc.Any2String(ret["type"])
 		switch Type {
 
-		case "FriendMessage":
+		case "FriendMessage", "GroupMessage", "TempMessage":
 			message(&qq, &Type, ret, &json)
 			break
 
-		case "GroupNameChangeEvent":
+		case "GroupNameChangeEvent", "BotLeaveEventActive", "MemberJoinRequestEvent", "MemberJoinEvent",
+			"GroupRecallEvent", "MemberLeaveEventQuit", "MemberLeaveEventKick", "BotGroupPermissionChangeEvent",
+			"MemberMuteEvent", "MemberUnmuteEvent", "BotMuteEvent", "BotUnmuteEvent", "MemberCardChangeEvent",
+			"MemberPermissionChangeEvent", "GroupMuteAllEvent":
 			notice(&qq, &Type, ret, &json)
 			break
 
-		case "NewFriendRequestEvent":
+		case "NewFriendRequestEvent", "BotInvitedJoinGroupRequestEvent":
 			request(&qq, &Type, ret, &json)
 			break
 

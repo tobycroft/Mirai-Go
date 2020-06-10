@@ -1,11 +1,11 @@
-package RequestPrivateModel
+package PrivateRequestModel
 
 import (
 	"main.go/tuuz"
 	"main.go/tuuz/Log"
 )
 
-const table = "request_private"
+const table = "private_request"
 
 func Api_insert(qq, eventId, message, fromId, groupId, nick interface{}) bool {
 	db := tuuz.Db().Table(table)

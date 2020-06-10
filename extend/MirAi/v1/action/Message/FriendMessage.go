@@ -1,7 +1,7 @@
 package Message
 
 import (
-	"main.go/extend/MirAi/v1/model/MessagePrivateModel"
+	"main.go/extend/MirAi/v1/model/PrivateMessageModel"
 	"main.go/tuuz"
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/Jsong"
@@ -48,7 +48,7 @@ func FriendMessage(qq *string, user_id *int64, str *string, sender map[string]in
 				break
 			}
 
-			go MessagePrivateModel.Api_insert(*qq, *message_id, *user_id, nickname, remark, *messages, strings.Join(*imgs, ","), *str, *time)
+			go PrivateMessageModel.Api_insert(*qq, *message_id, *user_id, nickname, remark, *messages, strings.Join(*imgs, ","), *str, *time)
 		}
 	}
 }

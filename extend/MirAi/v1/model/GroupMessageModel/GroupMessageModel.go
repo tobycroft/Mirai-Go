@@ -1,11 +1,11 @@
-package MessageGroupModel
+package GroupMessageModel
 
 import (
 	"main.go/tuuz"
 	"main.go/tuuz/Log"
 )
 
-const table = "message_private"
+const table = "group_message"
 
 func Api_insert(qq, message_id, user_id, role, nickname, user_role, group_id, group_name, message, imgs, json, time interface{}) bool {
 	db := tuuz.Db().Table(table)

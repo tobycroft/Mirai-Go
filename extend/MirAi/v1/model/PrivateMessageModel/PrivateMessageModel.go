@@ -1,11 +1,11 @@
-package MessagePrivateModel
+package PrivateMessageModel
 
 import (
 	"main.go/tuuz"
 	"main.go/tuuz/Log"
 )
 
-const table = "message_private"
+const table = "private_message"
 
 func Api_insert(qq, message_id, user_id, nickname, remark, message, imgs, json, time interface{}) bool {
 	db := tuuz.Db().Table(table)

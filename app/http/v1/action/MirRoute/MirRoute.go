@@ -142,11 +142,11 @@ func notice(qq, Type *string, json map[string]interface{}, str *string) {
 func request(qq, Type *string, json map[string]interface{}, str *string) {
 	switch *Type {
 	case "NewFriendRequestEvent": //个人-event-收到好友申请
-		Request.NewFriendRequest(*qq, json)
+		go Request.NewFriendRequest(*qq, json)
 		break
 
 	case "BotInvitedJoinGroupRequestEvent": //群-event-机器人被邀请进群
-		Request.BotInvitedJoinGroupRequest(*qq, json)
+		go Request.BotInvitedJoinGroupRequest(*qq, json)
 		break
 
 	default:

@@ -48,7 +48,8 @@ func FriendMessage(qq string, user_id int64, str string, sender map[string]inter
 				break
 			}
 
-			PrivateMessageModel.Api_insert(qq, message_id, user_id, nickname, remark, messages, strings.Join(imgs, ","), str, time)
 		}
 	}
+
+	PrivateMessageModel.Api_insert(qq, message_id, user_id, nickname, remark, messages, strings.Join(imgs, ","), str, time)
 }

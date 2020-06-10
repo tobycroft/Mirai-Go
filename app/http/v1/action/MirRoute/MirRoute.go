@@ -26,18 +26,18 @@ func Do(qq, json string) {
 		switch Type {
 
 		case "FriendMessage", "GroupMessage", "TempMessage":
-			message(&qq, &Type, ret, &json)
+			message(qq, Type, ret, json)
 			break
 
 		case "GroupNameChangeEvent", "BotLeaveEventActive", "MemberJoinRequestEvent", "MemberJoinEvent",
 			"GroupRecallEvent", "MemberLeaveEventQuit", "MemberLeaveEventKick", "BotGroupPermissionChangeEvent",
 			"MemberMuteEvent", "MemberUnmuteEvent", "BotMuteEvent", "BotUnmuteEvent", "MemberCardChangeEvent",
 			"MemberPermissionChangeEvent", "GroupMuteAllEvent":
-			notice(&qq, &Type, ret, &json)
+			notice(qq, Type, ret, json)
 			break
 
 		case "NewFriendRequestEvent", "BotInvitedJoinGroupRequestEvent":
-			request(&qq, &Type, ret, &json)
+			request(qq, Type, ret, json)
 			break
 
 		default:
@@ -46,7 +46,7 @@ func Do(qq, json string) {
 	}
 }
 
-func message(qq, Type *string, json map[string]interface{}, str *string) {
+func message(qq, Type string, json map[string]interface{}, str string) {
 	sender, err := Jsong.ParseObject(json["sender"])
 	if err != nil {
 		LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
@@ -61,18 +61,18 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
 		} else {
 			go LogRecvModel.Api_insert(qq, str)
-			var message_id *int64 //消息的id为了避免多个机器人冲突，主库需要对qq和mid进行对应
-			var messages *string  //用于存储临时的消息去掉图片后的分析数据
-			var time *int64       //接收消息的准确时间
-			var imgs *[]string    //img多个图片存成slice，没什么用以后做AI鉴黄要用
+			var message_id int64 = 0 //消息的id为了避免多个机器人冲突，主库需要对qq和mid进行对应
+			var messages = ""        //用于存储临时的消息去掉图片后的分析数据
+			var time int64           //接收消息的准确时间
+			var imgs []string        //img多个图片存成slice，没什么用以后做AI鉴黄要用
 
-			switch *Type {
+			switch Type {
 			case "FriendMessage": //个人消息
-				go Message.FriendMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
+				go Message.FriendMessage(qq, user_id, str, sender, message_jsons, message_id, messages, imgs, time)
 				break
 
 			case "GroupMessage": //群消息
-				go Message.GroupMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
+				go Message.GroupMessage(qq, user_id, str, sender, message_jsons, message_id, messages, imgs, time)
 				break
 
 			case "TempMessage":
@@ -86,8 +86,8 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 	}
 }
 
-func notice(qq, Type *string, json map[string]interface{}, str *string) {
-	switch *Type {
+func notice(qq, Type string, json map[string]interface{}, str string) {
+	switch Type {
 	case "GroupNameChangeEvent": //群-event-修改群名称
 		break
 
@@ -139,14 +139,14 @@ func notice(qq, Type *string, json map[string]interface{}, str *string) {
 	}
 }
 
-func request(qq, Type *string, json map[string]interface{}, str *string) {
-	switch *Type {
+func request(qq, Type string, json map[string]interface{}, str string) {
+	switch Type {
 	case "NewFriendRequestEvent": //个人-event-收到好友申请
-		go Request.NewFriendRequest(*qq, json)
+		go Request.NewFriendRequest(qq, json)
 		break
 
 	case "BotInvitedJoinGroupRequestEvent": //群-event-机器人被邀请进群
-		go Request.BotInvitedJoinGroupRequest(*qq, json)
+		go Request.BotInvitedJoinGroupRequest(qq, json)
 		break
 
 	default:

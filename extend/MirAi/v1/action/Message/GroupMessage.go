@@ -77,7 +77,9 @@ func GroupMessage(qq string, user_id int64, str string, sender map[string]interf
 			}
 		}
 	}
-	fmt.Println(at, at_qq)
+	if at {
+		//todo:机器人被At
+		fmt.Println(at, at_qq)
+	}
 	GroupMessageModel.Api_insert(qq, message_id, user_id, role, nickname, user_role, group_id, group_name, messages, strings.Join(imgs, ","), str, time)
-
 }

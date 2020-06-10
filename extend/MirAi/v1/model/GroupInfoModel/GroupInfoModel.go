@@ -56,3 +56,40 @@ func Api_select(qq interface{}) []gorose.Data {
 		return ret
 	}
 }
+
+func Api_update(qq, group_id, name, role interface{}) bool {
+	db := tuuz.Db().Table(table)
+	where := map[string]interface{}{
+		"qq":       qq,
+		"group_id": group_id,
+	}
+	db.Where(where)
+	data := map[string]interface{}{
+		"name": name,
+		"role": role,
+	}
+	db.Data(data)
+	_, err := db.Insert()
+	if err != nil {
+		Log.Dbrr(err, tuuz.FUNCTION_ALL())
+		return false
+	} else {
+		return true
+	}
+}
+
+func Api_delete(qq, group_id interface{}) bool {
+	db := tuuz.Db().Table(table)
+	where := map[string]interface{}{
+		"qq":       qq,
+		"group_id": group_id,
+	}
+	db.Where(where)
+	_, err := db.Delete()
+	if err != nil {
+		Log.Dbrr(err, tuuz.FUNCTION_ALL())
+		return false
+	} else {
+		return true
+	}
+}

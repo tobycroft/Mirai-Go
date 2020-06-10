@@ -76,7 +76,7 @@ func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]int
 				break
 			}
 			fmt.Println(at, at_qq)
-			go GroupMessageModel.Api_insert(*qq, *message_id, *user_id, role, nickname, user_role, group_id, group_name, *messages, strings.Join(*imgs, ","), *str, *time)
+			GroupMessageModel.Api_insert(*qq, *message_id, *user_id, role, nickname, user_role, group_id, group_name, *messages, strings.Join(*imgs, ","), *str, *time)
 		}
 	}
 }

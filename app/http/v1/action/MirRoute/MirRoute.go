@@ -135,7 +135,7 @@ func notice(qq, Type string, json map[string]interface{}, str string) {
 		break
 
 	default:
-		go LogUnknowModel.Api_insert(qq, str)
+		LogUnknowModel.Api_insert(qq, str)
 		break
 	}
 }

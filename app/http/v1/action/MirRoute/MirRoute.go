@@ -7,8 +7,7 @@ import (
 	"main.go/app/http/v1/model/LogRecvModel"
 	"main.go/app/http/v1/model/LogUnknowModel"
 	"main.go/extend/MirAi/v1/action/Message"
-	"main.go/extend/MirAi/v1/model/GroupRequestModel"
-	"main.go/extend/MirAi/v1/model/PrivateRequestModel"
+	"main.go/extend/MirAi/v1/action/Request"
 	"main.go/tuuz"
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/Jsong"
@@ -69,11 +68,11 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 
 			switch *Type {
 			case "FriendMessage": //个人消息
-				Message.FriendMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
+				go Message.FriendMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
 				break
 
 			case "GroupMessage": //群消息
-				Message.GroupMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
+				go Message.GroupMessage(qq, &user_id, str, sender, message_jsons, message_id, messages, imgs, time)
 				break
 
 			case "TempMessage":
@@ -143,11 +142,11 @@ func notice(qq, Type *string, json map[string]interface{}, str *string) {
 func request(qq, Type *string, json map[string]interface{}, str *string) {
 	switch *Type {
 	case "NewFriendRequestEvent": //个人-event-收到好友申请
-		go PrivateRequestModel.Api_insert(qq, json["eventId"], json["message"], json["fromId"], json["groupId"], json["nick"])
+		Request.NewFriendRequest(*qq, json)
 		break
 
 	case "BotInvitedJoinGroupRequestEvent": //群-event-机器人被邀请进群
-		go GroupRequestModel.Api_insert(qq, json["eventId"], json["message"], json["fromId"], json["groupId"], json["groupName"], json["nick"])
+		Request.BotInvitedJoinGroupRequest(*qq, json)
 		break
 
 	default:

@@ -62,10 +62,10 @@ func message(qq, Type *string, json map[string]interface{}, str *string) {
 			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
 		} else {
 			go LogRecvModel.Api_insert(qq, str)
-			var message_id *int64
-			var messages *string
-			var time *int64
-			var imgs *[]string
+			var message_id *int64 //消息的id为了避免多个机器人冲突，主库需要对qq和mid进行对应
+			var messages *string  //用于存储临时的消息去掉图片后的分析数据
+			var time *int64       //接收消息的准确时间
+			var imgs *[]string    //img多个图片存成slice，没什么用以后做AI鉴黄要用
 
 			switch *Type {
 			case "FriendMessage": //个人消息

@@ -44,7 +44,7 @@ func GroupMessage(qq string, user_id int64, str string, sender map[string]interf
 				break
 
 			case "Image":
-				imgs = append(imgs, Calc.Any2String(msg["Image"]))
+				imgs = append(imgs, Calc.Any2String(msg["url"]))
 				break
 
 			case "At":

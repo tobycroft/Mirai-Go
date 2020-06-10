@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]interface{}, message_jsons []interface{}, message_id *int64, messages *string, imgs *[]string, time *int64) {
+func GroupMessage(qq string, user_id int64, str string, sender map[string]interface{}, message_jsons []interface{}, message_id int64, messages string, imgs []string, time int64) {
 	nickname := Calc.Any2String(sender["memberName"])
 	user_role := Calc.Any2String(sender["permission"])
 	group, err := Jsong.ParseObject(sender["group"])
@@ -35,16 +35,16 @@ func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]int
 			var at_qq float64
 			switch msg["type"].(string) {
 			case "Source":
-				*message_id = Calc.Any2Int64(msg["id"])
-				*time = Calc.Any2Int64(msg["time"])
+				message_id = Calc.Any2Int64(msg["id"])
+				time = Calc.Any2Int64(msg["time"])
 				break
 
 			case "Plain":
-				*messages += Calc.Any2String(msg["text"])
+				messages += Calc.Any2String(msg["text"])
 				break
 
 			case "Image":
-				*imgs = append(*imgs, Calc.Any2String(msg["Image"]))
+				imgs = append(imgs, Calc.Any2String(msg["Image"]))
 				break
 
 			case "At":
@@ -76,7 +76,7 @@ func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]int
 				break
 			}
 			fmt.Println(at, at_qq)
-			GroupMessageModel.Api_insert(*qq, *message_id, *user_id, role, nickname, user_role, group_id, group_name, *messages, strings.Join(*imgs, ","), *str, *time)
+			GroupMessageModel.Api_insert(qq, message_id, user_id, role, nickname, user_role, group_id, group_name, messages, strings.Join(imgs, ","), str, time)
 		}
 	}
 }

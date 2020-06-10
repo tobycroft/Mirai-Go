@@ -16,7 +16,7 @@ require (
 	github.com/gohouse/gorose/v2 v2.1.7
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
-	github.com/gomodule/redigo v1.8.1 // indirect
+	github.com/gomodule/redigo v1.8.1
 	github.com/json-iterator/go v1.1.9
 	github.com/kirinlabs/HttpRequest v1.0.5
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect

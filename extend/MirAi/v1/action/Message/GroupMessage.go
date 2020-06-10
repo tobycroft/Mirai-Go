@@ -26,13 +26,13 @@ func GroupMessage(qq string, user_id int64, str string, sender map[string]interf
 	}
 	role := Calc.Any2String(group["permission"])
 	group_name := Calc.Any2String(group["name"])
+	at := false
+	var at_qq float64
 	for _, txt := range message_jsons {
 		msg, err := Jsong.ParseObject(txt)
 		if err != nil {
 			Log.Errs(err, tuuz.FUNCTION_ALL())
 		} else {
-			at := false
-			var at_qq float64
 			switch msg["type"].(string) {
 			case "Source":
 				message_id = Calc.Any2Int64(msg["id"])
@@ -75,8 +75,9 @@ func GroupMessage(qq string, user_id int64, str string, sender map[string]interf
 			default:
 				break
 			}
-			fmt.Println(at, at_qq)
-			GroupMessageModel.Api_insert(qq, message_id, user_id, role, nickname, user_role, group_id, group_name, messages, strings.Join(imgs, ","), str, time)
 		}
 	}
+	fmt.Println(at, at_qq)
+	GroupMessageModel.Api_insert(qq, message_id, user_id, role, nickname, user_role, group_id, group_name, messages, strings.Join(imgs, ","), str, time)
+
 }

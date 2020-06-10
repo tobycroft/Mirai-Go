@@ -49,6 +49,7 @@ func GroupMessage(qq *string, user_id *int64, str *string, sender map[string]int
 
 			case "At":
 				at_qq, err = Calc.Any2Float64_2(msg["target"])
+				//todo：这里需要查看at的用户是否为机器人账号
 				if err != nil {
 					at = false
 				} else {

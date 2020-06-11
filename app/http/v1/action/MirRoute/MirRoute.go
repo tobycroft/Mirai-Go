@@ -8,6 +8,8 @@ import (
 	"main.go/app/http/v1/model/LogUnknowModel"
 	"main.go/extend/MirAi/v1/action/Message"
 	"main.go/extend/MirAi/v1/action/Request"
+	"main.go/extend/MirAi/v1/model/GroupInfoModel"
+	"main.go/extend/MirAi/v1/model/GroupMemberModel"
 	"main.go/tuuz"
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/Jsong"
@@ -88,26 +90,88 @@ func message(qq, Type string, json map[string]interface{}, str string) {
 }
 
 func notice(qq, Type string, json map[string]interface{}, str string) {
+
 	switch Type {
 	case "GroupNameChangeEvent": //群-event-修改群名称
+		member, err := Jsong.ParseObject(json["member"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		group, err := Jsong.ParseObject(member["group"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		GroupInfoModel.Api_update(qq, group["id"], member["new"], group["permission"])
 		break
 
 	case "BotLeaveEventActive": //群-event-机器人被T/群-被解散
+		member, err := Jsong.ParseObject(json["member"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		group, err := Jsong.ParseObject(member["group"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		GroupInfoModel.Api_delete(qq, group["id"])
 		break
 
 	case "MemberJoinRequestEvent": //群-机器人-加入群
+		if Calc.Any2String(json["fromId"]) == qq {
+			GroupInfoModel.Api_insert(qq, json["groupId"], json["groupName"], "MEMBER")
+		}
 		break
 
 	case "MemberJoinEvent": //群-用户-有人加群
+
 		break
 
 	case "GroupRecallEvent": //群-event-撤回
 		break
 
 	case "MemberLeaveEventQuit": //群-event-主动退群
+		member, err := Jsong.ParseObject(json["member"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		group, err := Jsong.ParseObject(member["group"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		GroupMemberModel.Api_delete(group["id"], member["id"])
 		break
 
 	case "MemberLeaveEventKick": //群-用户-被T出群
+		member, err := Jsong.ParseObject(json["member"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		operator, err := Jsong.ParseObject(json["operator"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
+		group, err := Jsong.ParseObject(member["group"])
+		if err != nil {
+			Log.Errs(err, tuuz.FUNCTION_ALL())
+			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
+			return
+		}
 		break
 
 	case "BotGroupPermissionChangeEvent": //群-机器人-被设定为管理员/群-机器人-被取消管理

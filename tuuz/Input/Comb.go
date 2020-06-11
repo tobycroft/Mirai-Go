@@ -17,6 +17,8 @@ func Combi(key string, c *gin.Context, xss bool) (string, bool) {
 			return in, ok
 		}
 	} else {
-		return in, ok
+		c.JSON(200, RET.Ret_fail(400, key))
+		c.Abort()
+		return "", ok
 	}
 }

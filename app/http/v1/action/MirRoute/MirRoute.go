@@ -160,10 +160,6 @@ func notice(qq, Type string, json map[string]interface{}, str string) {
 			LogErrModel.Api_insert(err, tuuz.FUNCTION_ALL())
 			return
 		}
-		operator, err := Jsong.ParseObject(json["operator"])
-		if err != nil {
-
-		}
 		group, err := Jsong.ParseObject(member["group"])
 		if err != nil {
 			Log.Errs(err, tuuz.FUNCTION_ALL())
@@ -171,6 +167,13 @@ func notice(qq, Type string, json map[string]interface{}, str string) {
 			return
 		}
 		GroupMemberModel.Api_delete(group["id"], member["id"])
+		operator, err := Jsong.ParseObject(json["operator"])
+		if err != nil {
+
+		} else {
+			//检测t人操作
+			fmt.Println(operator)
+		}
 		break
 
 	case "BotGroupPermissionChangeEvent": //群-机器人-被设定为管理员/群-机器人-被取消管理

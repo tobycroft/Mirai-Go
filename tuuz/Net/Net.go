@@ -47,6 +47,23 @@ func Rpc(url string, postData map[string]interface{}, username, password string)
 	}
 }
 
+func Postraw(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (string,
+	error) {
+	// 链式操作
+	req := Request()
+	req.SetHeaders(headers)
+	req.SetCookies(cookies)
+	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
+	ret, err := req.JSON().Post(url+"?"+Http_build_query(queries), postData)
+	if err != nil {
+		return "", err
+	}
+	return ret.Content()
+}
+
 func Post(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (string, error) {
 	// 链式操作
 	req := Request()

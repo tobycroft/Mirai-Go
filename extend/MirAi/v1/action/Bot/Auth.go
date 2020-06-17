@@ -6,7 +6,7 @@ import (
 	"main.go/extend/MirAi/v1/model/BotModel"
 )
 
-func App_auth(qq interface{}) error {
+func App_Auth(qq interface{}) error {
 	ret, err := api.Auth(qq)
 	if err != nil {
 		return err

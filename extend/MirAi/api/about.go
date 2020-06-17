@@ -2,7 +2,6 @@ package api
 
 import (
 	"errors"
-	"fmt"
 	"main.go/extend/MirAi/v1/action/Bot"
 	"main.go/tuuz"
 	"main.go/tuuz/Jsong"
@@ -16,11 +15,10 @@ func About(qq interface{}) (map[string]interface{}, error) {
 		return nil, errors.New("未找到账号，可能机器人已经过期")
 	}
 	ret, err := Net.Get(bot.URL+"/about", nil, nil, nil)
-	fmt.Println(ret, err)
 	if err != nil {
 		Log.Crrs(err, tuuz.FUNCTION_ALL())
 	} else {
-		return Jsong.ParseObject(ret)
+		return Jsong.JObject(ret)
 	}
 	return nil, err
 }
@@ -37,7 +35,7 @@ func Auth(qq interface{}) (map[string]interface{}, error) {
 	if err != nil {
 		Log.Crrs(err, tuuz.FUNCTION_ALL())
 	} else {
-		return Jsong.ParseObject(ret)
+		return Jsong.JObject(ret)
 	}
 	return nil, err
 }

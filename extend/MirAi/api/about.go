@@ -9,7 +9,7 @@ import (
 	"main.go/tuuz/Net"
 )
 
-func About(qq string) (map[string]interface{}, error) {
+func About(qq interface{}) (map[string]interface{}, error) {
 	bot, ok := Bot.BotSingle(qq)
 	if !ok {
 		return nil, errors.New("未找到账号，可能机器人已经过期")
@@ -23,7 +23,7 @@ func About(qq string) (map[string]interface{}, error) {
 	return nil, err
 }
 
-func Auth(qq string) (map[string]interface{}, error) {
+func Auth(qq interface{}) (map[string]interface{}, error) {
 	bot, ok := Bot.BotSingle(qq)
 	if !ok {
 		return nil, errors.New("未找到账号，可能机器人已经过期")

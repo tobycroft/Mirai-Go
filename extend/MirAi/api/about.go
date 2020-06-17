@@ -31,5 +31,11 @@ func Auth(qq interface{}) (map[string]interface{}, error) {
 	post := map[string]interface{}{
 		"authKey": bot.AuthKey,
 	}
-	Net.Postraw(bot.URL+"/auth", nil, post, nil, nil)
+	ret, err := Net.Postraw(bot.URL+"/auth", nil, post, nil, nil)
+	if err != nil {
+		Log.Crrs(err, tuuz.FUNCTION_ALL())
+	} else {
+		return Jsong.ParseObject(ret)
+	}
+	return nil, err
 }

@@ -5,10 +5,6 @@ import (
 	"main.go/tuuz/Calc"
 )
 
-func All() {
-
-}
-
 type Bot struct {
 	URL        string
 	AuthKey    string
@@ -32,6 +28,5 @@ func Bots(qq string) []Bot {
 		sessionKey := Calc.Any2String(bot["sessionKey"])
 		Bots = append(Bots, Bot{URL: url, AuthKey: authKey, SessionKey: sessionKey})
 	}
-
 	return Bots
 }

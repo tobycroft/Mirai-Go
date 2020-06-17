@@ -14,6 +14,7 @@ func Api_find(qq interface{}) gorose.Data {
 		"qq": qq,
 	}
 	db.Where(where)
+	db.Where("expire > current_timestamp()")
 	ret, err := db.First()
 	if err != nil {
 		Log.Dbrr(err, tuuz.FUNCTION_ALL())
@@ -44,6 +45,7 @@ func Api_update(qq, sessionKey interface{}) bool {
 
 func Api_select() []gorose.Data {
 	db := tuuz.Db().Table(table)
+	db.Where("expire > current_timestamp()")
 	ret, err := db.Get()
 	if err != nil {
 		Log.Dbrr(err, tuuz.FUNCTION_ALL())

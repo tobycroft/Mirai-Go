@@ -5,28 +5,28 @@ import (
 	"main.go/tuuz/Calc"
 )
 
-type Bot struct {
+type Robot struct {
 	URL        string
 	AuthKey    string
 	SessionKey string
 }
 
-func Bota(qq string) Bot {
+func BotOne(qq string) Robot {
 	bot := BotModel.Api_find(qq)
 	url := Calc.Any2String(bot["url"])
 	authKey := Calc.Any2String(bot["authKey"])
 	sessionKey := Calc.Any2String(bot["sessionKey"])
-	return Bot{URL: url, AuthKey: authKey, SessionKey: sessionKey}
+	return Robot{URL: url, AuthKey: authKey, SessionKey: sessionKey}
 }
 
-func Bots(qq string) []Bot {
+func BotAll(qq string) []Robot {
 	bots := BotModel.Api_select()
-	Bots := []Bot{}
+	Bots := []Robot{}
 	for _, bot := range bots {
 		url := Calc.Any2String(bot["url"])
 		authKey := Calc.Any2String(bot["authKey"])
 		sessionKey := Calc.Any2String(bot["sessionKey"])
-		Bots = append(Bots, Bot{URL: url, AuthKey: authKey, SessionKey: sessionKey})
+		Bots = append(Bots, Robot{URL: url, AuthKey: authKey, SessionKey: sessionKey})
 	}
 	return Bots
 }

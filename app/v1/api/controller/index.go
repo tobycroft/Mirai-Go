@@ -1,9 +1,10 @@
 package controller
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"main.go/extend/MirAi/api"
-	"main.go/extend/MirAi/v1/action/Bot"
+	"main.go/extend/MirAi/v1/model/BotModel"
 	"main.go/tuuz/RET"
 )
 
@@ -37,5 +38,26 @@ func auth(c *gin.Context) {
 }
 
 func verify(c *gin.Context) {
-	Bot.App_Auth(2140300010)
+	qq := 2140300010
+	ret, err := api.Auth(qq)
+	if err != nil {
+		return err
+	} else {
+		if ret["code"].(float64) == 0 {
+			session := ret["session"].(string)
+			//bind
+			ret, err = api.Verify(qq, session)
+			if err != nil {
+				return err
+			} else {
+				if BotModel.Api_update(qq, session) {
+					return nil
+				} else {
+					return errors.New("数据库插入失败")
+				}
+			}
+		} else {
+			return errors.New("获取session失败")
+		}
+	}
 }

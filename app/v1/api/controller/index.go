@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"main.go/extend/MirAi/api"
+	"main.go/extend/MirAi/v1/action/Bot"
 	"main.go/tuuz/RET"
 )
 
@@ -10,6 +11,7 @@ func IndexController(route *gin.RouterGroup) {
 	route.Any("", index)
 	route.Any("about", about)
 	route.Any("auth", auth)
+	route.Any("verify", verify)
 }
 
 func index(c *gin.Context) {
@@ -35,4 +37,5 @@ func auth(c *gin.Context) {
 }
 
 func verify(c *gin.Context) {
+	Bot.App_Auth(2140300010)
 }

@@ -11,7 +11,7 @@ type Robot struct {
 	SessionKey string
 }
 
-func BotSingle(qq string) (Robot, bool) {
+func BotSingle(qq interface{}) (Robot, bool) {
 	bot := BotModel.Api_find(qq)
 	if len(bot) < 1 {
 		return Robot{}, false

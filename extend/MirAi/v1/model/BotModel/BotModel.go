@@ -23,6 +23,25 @@ func Api_find(qq interface{}) gorose.Data {
 	}
 }
 
+func Api_update(qq, sessionKey interface{}) bool {
+	db := tuuz.Db().Table(table)
+	where := map[string]interface{}{
+		"qq": qq,
+	}
+	db.Where(where)
+	data := map[string]interface{}{
+		"sessionKey": sessionKey,
+	}
+	db.Data(data)
+	_, err := db.Update()
+	if err != nil {
+		Log.Dbrr(err, tuuz.FUNCTION_ALL())
+		return false
+	} else {
+		return true
+	}
+}
+
 func Api_select() []gorose.Data {
 	db := tuuz.Db().Table(table)
 	ret, err := db.Get()

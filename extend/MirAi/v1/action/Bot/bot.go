@@ -11,16 +11,22 @@ type Robot struct {
 	SessionKey string
 }
 
-func BotOne(qq string) Robot {
+func BotSingle(qq string) (Robot, bool) {
 	bot := BotModel.Api_find(qq)
+	if len(bot) < 1 {
+		return Robot{}, false
+	}
 	url := Calc.Any2String(bot["url"])
 	authKey := Calc.Any2String(bot["authKey"])
 	sessionKey := Calc.Any2String(bot["sessionKey"])
-	return Robot{URL: url, AuthKey: authKey, SessionKey: sessionKey}
+	return Robot{URL: url, AuthKey: authKey, SessionKey: sessionKey}, true
 }
 
-func BotAll(qq string) []Robot {
+func BotAll() ([]Robot, bool) {
 	bots := BotModel.Api_select()
+	if len(bots) < 1 {
+		return []Robot{}, false
+	}
 	Bots := []Robot{}
 	for _, bot := range bots {
 		url := Calc.Any2String(bot["url"])
@@ -28,5 +34,5 @@ func BotAll(qq string) []Robot {
 		sessionKey := Calc.Any2String(bot["sessionKey"])
 		Bots = append(Bots, Robot{URL: url, AuthKey: authKey, SessionKey: sessionKey})
 	}
-	return Bots
+	return Bots, true
 }

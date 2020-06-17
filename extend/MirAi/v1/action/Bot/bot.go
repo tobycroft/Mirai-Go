@@ -25,7 +25,7 @@ func BotSingle(qq string) (Robot, bool) {
 func BotAll() ([]Robot, bool) {
 	bots := BotModel.Api_select()
 	if len(bots) < 1 {
-		return []Robot{}, false
+		return nil, false
 	}
 	Bots := []Robot{}
 	for _, bot := range bots {

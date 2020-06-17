@@ -41,23 +41,23 @@ func verify(c *gin.Context) {
 	qq := 2140300010
 	ret, err := api.Auth(qq)
 	if err != nil {
-		return err
+		c.JSON(200, err.Error())
 	} else {
 		if ret["code"].(float64) == 0 {
 			session := ret["session"].(string)
 			//bind
 			ret, err = api.Verify(qq, session)
 			if err != nil {
-				return err
+				c.JSON(200, err.Error())
 			} else {
 				if BotModel.Api_update(qq, session) {
-					return nil
+					c.JSON(200, err.Error())
 				} else {
-					return errors.New("数据库插入失败")
+					c.JSON(200, errors.New("数据库插入失败"))
 				}
 			}
 		} else {
-			return errors.New("获取session失败")
+			c.JSON(200, errors.New("获取session失败"))
 		}
 	}
 }

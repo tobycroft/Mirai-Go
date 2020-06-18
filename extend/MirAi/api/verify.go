@@ -9,12 +9,16 @@ import (
 	"main.go/tuuz/Net"
 )
 
-func About(qq interface{}) (map[string]interface{}, error) {
+func Verify(qq, sessionKey interface{}) (map[string]interface{}, error) {
 	bot, ok := Bot.BotSingle(qq)
 	if !ok {
 		return nil, errors.New("未找到账号，可能机器人已经过期")
 	}
-	ret, err := Net.Get(bot.URL+"/about", nil, nil, nil)
+	post := map[string]interface{}{
+		"qq":         qq,
+		"sessionKey": sessionKey,
+	}
+	ret, err := Net.Postraw(bot.URL+"/verify", nil, post, nil, nil)
 	if err != nil {
 		Log.Crrs(err, tuuz.FUNCTION_ALL())
 	} else {

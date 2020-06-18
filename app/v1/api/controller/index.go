@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"main.go/extend/MirAi/api"
 	"main.go/extend/MirAi/v1/model/BotModel"
@@ -51,13 +50,13 @@ func verify(c *gin.Context) {
 				c.JSON(200, err.Error())
 			} else {
 				if BotModel.Api_update(qq, session) {
-					c.JSON(200, err.Error())
+					c.JSON(200, "成功")
 				} else {
-					c.JSON(200, errors.New("数据库插入失败"))
+					c.JSON(200, "失败")
 				}
 			}
 		} else {
-			c.JSON(200, errors.New("获取session失败"))
+			c.JSON(200, "获取session失败")
 		}
 	}
 }

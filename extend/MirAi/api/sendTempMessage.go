@@ -19,7 +19,7 @@ func SendTempMessage(qq, target interface{}, Type string, messages []interface{}
 			"group":        target,
 			"messageChain": messages,
 		}
-		ret, err := Net.Postraw(bot.URL+"/sendFriendMessage", nil, post, nil, nil)
+		ret, err := Net.Postraw(bot.URL+"/sendTempMessage", nil, post, nil, nil)
 		if err != nil {
 			Log.Crrs(err, tuuz.FUNCTION_ALL())
 			return nil, err

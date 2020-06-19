@@ -19,7 +19,7 @@ func kick(qq, group_id, user_id, reason interface{}) (map[string]interface{}, er
 			"memberId":   user_id,
 			"msg":        reason,
 		}
-		ret, err := Net.Postraw(bot.URL+"/mute", nil, post, nil, nil)
+		ret, err := Net.Postraw(bot.URL+"/kick", nil, post, nil, nil)
 		if err != nil {
 			Log.Crrs(err, tuuz.FUNCTION_ALL())
 		} else {

@@ -8,14 +8,14 @@ import (
 	"main.go/tuuz/Net"
 )
 
-func SendFriendMessage(qq, target interface{}, messages []interface{}) (map[string]interface{}, error) {
+func SendFriendMessage(qq, user_id interface{}, messages []interface{}) (map[string]interface{}, error) {
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err
 	} else {
 		post := map[string]interface{}{
 			"sessionKey":   bot.SessionKey,
-			"target":       target,
+			"target":       user_id,
 			"messageChain": messages,
 		}
 		ret, err := Net.Postraw(bot.URL+"/sendFriendMessage", nil, post, nil, nil)

@@ -10,8 +10,8 @@ import (
 )
 
 func Verify(qq, sessionKey interface{}) (map[string]interface{}, error) {
-	bot, ok := Bot.BotSingle(qq)
-	if !ok {
+	bot, err := Bot.BotSingle(qq)
+	if err != nil {
 		return nil, errors.New("未找到账号，可能机器人已经过期")
 	}
 	post := map[string]interface{}{

@@ -17,8 +17,8 @@ func Refresh_session() {
 }
 
 func refresh() {
-	bots, ok := Bot.BotAll()
-	if !ok {
+	bots, err := Bot.BotAll()
+	if err != nil {
 		log.Println("没有可用的bot")
 	} else {
 		for _, bot := range bots {

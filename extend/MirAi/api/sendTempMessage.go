@@ -8,15 +8,15 @@ import (
 	"main.go/tuuz/Net"
 )
 
-func SendTempMessage(qq, target interface{}, Type string, messages []interface{}) (map[string]interface{}, error) {
+func SendTempMessage(qq, group_id, user_id interface{}, messages []interface{}) (map[string]interface{}, error) {
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err
 	} else {
 		post := map[string]interface{}{
 			"sessionKey":   bot.SessionKey,
-			"qq":           target,
-			"group":        target,
+			"qq":           user_id,
+			"group":        group_id,
 			"messageChain": messages,
 		}
 		ret, err := Net.Postraw(bot.URL+"/sendTempMessage", nil, post, nil, nil)

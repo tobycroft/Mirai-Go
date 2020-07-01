@@ -9,6 +9,6 @@ type Config struct {
 	anonymousChat     bool
 }
 
-func groupConfig(qq, group_id interface{}, config Config) (map[string]interface{}, error) {
-
-}
+//func groupConfig(qq, group_id interface{}, config Config) (map[string]interface{}, error) {
+//
+//}

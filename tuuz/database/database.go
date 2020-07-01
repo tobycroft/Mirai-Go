@@ -28,11 +28,12 @@ func DbConfig() *gorose.Config {
 
 func dsn() string {
 	dbname := "mirai"
-	dbuser := "mirai_Copy"
+	dbuser := "mirai"
 	dbpass := "qwerty123"
-	dbhost := "b.aerofsx.com"
+	dbhost := "10.0.0.170"
 	conntype := "tcp"
-	dbport := "17033"
+	dbport := "3306"
 	charset := "utf8mb4"
 	return dbuser + ":" + dbpass + "@" + conntype + "(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=" + charset + "&parseTime=true"
+
 }

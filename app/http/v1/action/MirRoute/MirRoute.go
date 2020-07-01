@@ -6,6 +6,7 @@ import (
 	"main.go/app/http/v1/model/LogModel"
 	"main.go/app/http/v1/model/LogRecvModel"
 	"main.go/app/http/v1/model/LogUnknowModel"
+	"main.go/extend/MirAi/cron"
 	"main.go/extend/MirAi/v1/action/Message"
 	"main.go/extend/MirAi/v1/action/Request"
 	"main.go/extend/MirAi/v1/model/GroupInfoModel"
@@ -40,6 +41,10 @@ func Do(qq, json string) {
 
 		case "NewFriendRequestEvent", "BotInvitedJoinGroupRequestEvent":
 			request(qq, Type, ret, json)
+			break
+
+		case "BotReloginEvent":
+			cron.Refresh()
 			break
 
 		default:

@@ -11,12 +11,12 @@ import (
 
 func Refresh_session() {
 	for {
-		refresh()
+		Refresh()
 		time.Sleep(10 * time.Minute)
 	}
 }
 
-func refresh() {
+func Refresh() {
 	bots, err := Bot.BotAll()
 	if err != nil {
 		log.Println("没有可用的bot")

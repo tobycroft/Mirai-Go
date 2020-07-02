@@ -9,6 +9,11 @@ import (
 )
 
 func NewFriendRequestEvent(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+	/*
+		operate	说明
+		0	同意邀请
+		1	拒绝邀请
+	*/
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err

@@ -14,7 +14,7 @@ func BotInvitedJoinGroupRequest(qq string, json map[string]interface{}) {
 		if len(allow) > 0 {
 			api.MemberJoinRequestEvent(qq, json["eventId"], json["fromId"], json["groupId"], 0, "")
 		} else {
-			api.MemberJoinRequestEvent(qq, json["eventId"], json["fromId"], json["groupId"], 1, "机器人主不允许加入本群")
+			api.MemberJoinRequestEvent(qq, json["eventId"], json["fromId"], json["groupId"], 1, "不能加入，请增加列表")
 		}
 	} else {
 		api.MemberJoinRequestEvent(qq, json["eventId"], json["fromId"], json["groupId"], 0, "")

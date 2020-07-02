@@ -8,7 +8,7 @@ import (
 	"main.go/tuuz/Net"
 )
 
-func MemberJoinRequestEvent(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+func AllowJoinIn(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err
@@ -23,6 +23,29 @@ func MemberJoinRequestEvent(qq, eventId, fromId, groupId, operate, message inter
 			"type":       "MemberJoinRequestEvent",
 			"groupName":  "Group",
 			"nick":       "Nick Name",
+		}
+		ret, err := Net.Postraw(bot.URL+"/resp/memberJoinRequestEvent", nil, post, nil, nil)
+		if err != nil {
+			Log.Crrs(err, tuuz.FUNCTION_ALL())
+			return nil, err
+		} else {
+			return Jsong.JObject(ret)
+		}
+	}
+}
+
+func AllowInviteGroup(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+	bot, err := Bot.BotSingle(qq)
+	if err != nil {
+		return nil, err
+	} else {
+		post := map[string]interface{}{
+			"sessionKey": bot.SessionKey,
+			"eventId":    eventId,
+			"fromId":     fromId,
+			"groupId":    groupId,
+			"operate":    operate,
+			"message":    message,
 		}
 		ret, err := Net.Postraw(bot.URL+"/resp/memberJoinRequestEvent", nil, post, nil, nil)
 		if err != nil {

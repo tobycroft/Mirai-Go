@@ -9,6 +9,11 @@ import (
 )
 
 func AllowJoinIn(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+	/*
+		operate	说明
+		0	同意邀请
+		1	拒绝邀请
+	*/
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err
@@ -20,9 +25,6 @@ func AllowJoinIn(qq, eventId, fromId, groupId, operate, message interface{}) (ma
 			"groupId":    groupId,
 			"operate":    operate,
 			"message":    message,
-			"type":       "MemberJoinRequestEvent",
-			"groupName":  "Group",
-			"nick":       "Nick Name",
 		}
 		ret, err := Net.Postraw(bot.URL+"/resp/memberJoinRequestEvent", nil, post, nil, nil)
 		if err != nil {
@@ -35,6 +37,11 @@ func AllowJoinIn(qq, eventId, fromId, groupId, operate, message interface{}) (ma
 }
 
 func AllowInviteGroup(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+	/*
+		operate	说明
+		0	同意邀请
+		1	拒绝邀请
+	*/
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
 		return nil, err

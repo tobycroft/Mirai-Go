@@ -44,3 +44,12 @@ func AllowInviteGroup(qq, eventId, fromId, groupId, operate, message interface{}
 	*/
 	return AllowJoinIn(qq, eventId, fromId, groupId, operate, message)
 }
+
+func MemberJoinRequestEvent(qq, eventId, fromId, groupId, operate, message interface{}) (map[string]interface{}, error) {
+	/*
+		operate	说明
+		0	同意邀请
+		1	拒绝邀请
+	*/
+	return AllowJoinIn(qq, eventId, fromId, groupId, operate, message)
+}

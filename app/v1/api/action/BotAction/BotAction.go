@@ -15,3 +15,17 @@ func App_LockGroup(qq interface{}) bool {
 		return true
 	}
 }
+
+func App_lockFriend(qq interface{}) bool {
+	botfunction := BotFunctionModel.Api_find(qq)
+	if len(botfunction) > 0 {
+		if botfunction["lock_friend"].(int64) == 1 {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		BotFunctionModel.Api_insert(qq)
+		return true
+	}
+}

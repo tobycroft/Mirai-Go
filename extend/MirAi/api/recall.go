@@ -8,6 +8,25 @@ import (
 	"main.go/tuuz/Net"
 )
 
+/*
+撤回消息
+[POST] /recall
+使用此方法撤回指定消息。对于bot发送的消息，有2分钟时间限制。对于撤回群聊中群员的消息，需要有相应权限
+
+请求
+{
+    "sessionKey": "YourSession",
+    "target": 987654321
+}
+名字	类型	可选	举例	说明
+sessionKey	String	false	YourSession	已经激活的Session
+target	Int	false	987654321	需要撤回的消息的messageId
+响应: 返回统一状态码
+{
+    "code": 0,
+    "msg": "success"
+}
+*/
 func Recall(qq, messageId interface{}) (map[string]interface{}, error) {
 	bot, err := Bot.BotSingle(qq)
 	if err != nil {
